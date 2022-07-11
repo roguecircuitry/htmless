@@ -23,10 +23,13 @@
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.14.0",
     "@babel/plugin-transform-typescript": "^7.10.5",
-    "@babel/preset-env": "^7.14.1"
+    "@babel/preset-env": "^7.14.1",
+    "typescript": "^4.7.4"
   },
   "scripts": {
-    "build": "babel src --extensions .ts --copy-files -d ."
+    "build": "babel src --extensions .ts --copy-files -d . && npm run build-types",
+    "build-types": "npx tsc --project tsconfig.json",
+    "publish": "npm publish --access public"
   },
   "dependencies": {
     "@repcomm/exponent-ts": "^1.1.9"
