@@ -1,10 +1,20 @@
-import { EXPONENT_CSS_BODY_STYLES, EXPONENT_CSS_STYLES, Panel, Text } from "@repcomm/exponent-ts";
-EXPONENT_CSS_STYLES.mount(document.head);
-EXPONENT_CSS_BODY_STYLES.mount(document.head);
+import { exponent, UI } from "./ui.js";
 
 async function main() {
-  const container = new Panel().setId("container").mount(document.body);
-  const title = new Text().setTextContent("Hello World").mount(container);
+  //create a UI builder
+  let ui = new UI.Builder() //register some default styles with the exponent function when creating elements
+  .default(exponent) //create a stylesheet
+  .create("style").style({
+    ".bg": {
+      backgroundColor: "gray"
+    }
+  }).mount(document.head) //create a div
+  .create("div", "content", "bg").style({
+    color: "white",
+    height: "100px"
+  }).textContent("Hello World").on("click", evt => {
+    console.log("clicked");
+  }).mount(document.body);
 }
 
 main();

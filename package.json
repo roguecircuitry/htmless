@@ -1,11 +1,11 @@
 {
-  "name": "ts-map-babel-template",
+  "name": "@roguecircuitry/htmless",
   "version": "1.0.0",
   "description": "TypeScript, ES Modules, import map, import map polyfill, and babel",
-  "main": "index.js",
+  "main": "./mod.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RepComm/ts-map-babel-template.git"
+    "url": "git+https://github.com/roguecircuitry/htmless.git"
   },
   "keywords": [
     "typescript",
@@ -16,9 +16,9 @@
   "author": "Jonathan Crowder",
   "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/RepComm/ts-map-babel-template/issues"
+    "url": "https://github.com/roguecircuitry/htmless/issues"
   },
-  "homepage": "https://github.com/RepComm/ts-map-babel-template#readme",
+  "homepage": "https://github.com/roguecircuitry/htmless#readme",
   "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.14.0",
@@ -32,6 +32,5 @@
     "publish": "npm publish --access public"
   },
   "dependencies": {
-    "@repcomm/exponent-ts": "^1.1.9"
   }
 }
