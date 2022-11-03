@@ -1,6 +1,6 @@
 {
   "name": "@roguecircuitry/htmless",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "TypeScript, ES Modules, import map, import map polyfill, and babel",
   "main": "./mod.js",
   "repository": {
