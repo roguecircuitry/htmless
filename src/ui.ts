@@ -211,6 +211,9 @@ export class UIBuilder {
     this.e.classList.add(...classes);
     return this;
   }
+  hasClass (c: string): boolean {
+    return this.e.classList.contains(c);
+  }
   /**remove CSS classes*/
   classesRemove (...classes: string[]): this {
     this.e.classList.remove(...classes);
@@ -229,6 +232,13 @@ export class UIBuilder {
   /**assign attributes*/
   attrs (attrs: NamedNodeMap): this {
     Object.assign( this.e.attributes, attrs);
+    return this;
+  }
+  hasAttr (attrName: string): boolean {
+    return this.e.hasAttribute(attrName);
+  }
+  removeAttr (attrName: string): this {
+    this.e.removeAttribute(attrName);
     return this;
   }
   /**console.log(element, ...msgs)*/

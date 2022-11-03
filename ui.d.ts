@@ -69,6 +69,7 @@ export declare class UIBuilder {
     style(s: Partial<CSSStyleDeclaration> | StyleDef): this;
     /**add CSS classes*/
     classes(...classes: string[]): this;
+    hasClass(c: string): boolean;
     /**remove CSS classes*/
     classesRemove(...classes: string[]): this;
     /**set the ID*/
@@ -77,6 +78,8 @@ export declare class UIBuilder {
     textContent(s: string): this;
     /**assign attributes*/
     attrs(attrs: NamedNodeMap): this;
+    hasAttr(attrName: string): boolean;
+    removeAttr(attrName: string): this;
     /**console.log(element, ...msgs)*/
     log(...msgs: string[]): this;
     /**Append as a child to `p`

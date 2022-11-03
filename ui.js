@@ -172,6 +172,10 @@ export class UIBuilder {
     this.e.classList.add(...classes);
     return this;
   }
+
+  hasClass(c) {
+    return this.e.classList.contains(c);
+  }
   /**remove CSS classes*/
 
 
@@ -198,6 +202,15 @@ export class UIBuilder {
 
   attrs(attrs) {
     Object.assign(this.e.attributes, attrs);
+    return this;
+  }
+
+  hasAttr(attrName) {
+    return this.e.hasAttribute(attrName);
+  }
+
+  removeAttr(attrName) {
+    this.e.removeAttribute(attrName);
     return this;
   }
   /**console.log(element, ...msgs)*/
