@@ -254,7 +254,7 @@ export class UIBuilder {
     return this;
   }
 
-  deref(e) {
+  deref() {
     this.elements.pop();
     return this;
   }

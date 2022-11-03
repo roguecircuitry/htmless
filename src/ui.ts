@@ -281,7 +281,7 @@ export class UIBuilder {
     this.elements.push(e);
     return this;
   }
-  deref (e: HTMLElement): this {
+  deref (): this {
     this.elements.pop();
     return this;
   }

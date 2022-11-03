@@ -94,7 +94,7 @@ export declare class UIBuilder {
     /**Alias to `<HTMLElement>.addEventListener`*/
     on(type: keyof HTMLElementEventMap, listener: (this: HTMLElement, ev: Event) => any, options?: boolean | AddEventListenerOptions): this;
     ref(e: HTMLElement): this;
-    deref(e: HTMLElement): this;
+    deref(): this;
     /**Alias to `<HTMLElement>.removeEventListener`*/
     off(type: keyof HTMLElementEventMap, listener: (this: HTMLElement, ev: Event) => any): this;
     /**Alias to `<HTMLElement>.getBoundingClientRect`*/
