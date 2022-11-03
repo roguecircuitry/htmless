@@ -1,9 +1,9 @@
 
-import { exponent, UI } from "./ui.js";
+import { exponent, UIBuilder } from "./ui.js";
 
 async function main () {
   //create a UI builder
-  let ui = new UI.Builder()
+  let ui = new UIBuilder()
 
   //register some default styles with the exponent function when creating elements
   .default(exponent)
@@ -12,7 +12,7 @@ async function main () {
   .create("style")
   .style({
     ".bg": {
-      backgroundColor: "gray",
+      backgroundColor: "gray"
     }
   })
   .mount(document.head)

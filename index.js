@@ -1,8 +1,8 @@
-import { exponent, UI } from "./ui.js";
+import { exponent, UIBuilder } from "./ui.js";
 
 async function main() {
   //create a UI builder
-  let ui = new UI.Builder() //register some default styles with the exponent function when creating elements
+  let ui = new UIBuilder() //register some default styles with the exponent function when creating elements
   .default(exponent) //create a stylesheet
   .create("style").style({
     ".bg": {

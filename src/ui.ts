@@ -48,7 +48,7 @@ export interface DOMRectLike {
   h: number;
 }
 
-class UIBuilder {
+export class UIBuilder {
   /**the document being used for creating elements*/
   _doc: Document;
 
@@ -277,6 +277,14 @@ class UIBuilder {
 
     return this;
   }
+  ref (e: HTMLElement): this {
+    this.elements.push(e);
+    return this;
+  }
+  deref (e: HTMLElement): this {
+    this.elements.pop();
+    return this;
+  }
   /**Alias to `<HTMLElement>.removeEventListener`*/
   off (
     type: keyof HTMLElementEventMap,
@@ -295,7 +303,3 @@ class UIBuilder {
     return this;
   }
 }
-
-export const UI = {
-  Builder: UIBuilder
-};

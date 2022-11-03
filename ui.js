@@ -15,8 +15,7 @@ export function exponent(ui) {
 
   ui.classes(...cs);
 }
-
-class UIBuilder {
+export class UIBuilder {
   /**the document being used for creating elements*/
 
   /**a list of elements being created*/
@@ -249,6 +248,16 @@ class UIBuilder {
     this.e.addEventListener(type, listener, options);
     return this;
   }
+
+  ref(e) {
+    this.elements.push(e);
+    return this;
+  }
+
+  deref(e) {
+    this.elements.pop();
+    return this;
+  }
   /**Alias to `<HTMLElement>.removeEventListener`*/
 
 
@@ -271,7 +280,3 @@ class UIBuilder {
   }
 
 }
-
-export const UI = {
-  Builder: UIBuilder
-};

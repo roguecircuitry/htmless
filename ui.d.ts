@@ -16,7 +16,7 @@ export interface DOMRectLike {
     w: number;
     h: number;
 }
-declare class UIBuilder {
+export declare class UIBuilder {
     /**the document being used for creating elements*/
     _doc: Document;
     /**a list of elements being created*/
@@ -93,6 +93,8 @@ declare class UIBuilder {
     unmount(p?: HTMLElement): this;
     /**Alias to `<HTMLElement>.addEventListener`*/
     on(type: keyof HTMLElementEventMap, listener: (this: HTMLElement, ev: Event) => any, options?: boolean | AddEventListenerOptions): this;
+    ref(e: HTMLElement): this;
+    deref(e: HTMLElement): this;
     /**Alias to `<HTMLElement>.removeEventListener`*/
     off(type: keyof HTMLElementEventMap, listener: (this: HTMLElement, ev: Event) => any): this;
     /**Alias to `<HTMLElement>.getBoundingClientRect`*/
@@ -100,7 +102,3 @@ declare class UIBuilder {
     /**Same as getRect, but output is saved to a provided `out: DOMRect`, this method is still chainable*/
     rect(out: DOMRect): this;
 }
-export declare const UI: {
-    Builder: typeof UIBuilder;
-};
-export {};
