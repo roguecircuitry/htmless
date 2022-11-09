@@ -19,4 +19,4 @@ export declare function cssConvertCase(v: string): string;
  * @param s
  * @returns
  */
-export declare function cssDeclarationToString(s: CSSStyleDeclaration): string;
+export declare function cssDeclarationToString(s: Partial<CSSStyleDeclaration>): string;

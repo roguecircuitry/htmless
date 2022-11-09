@@ -39,15 +39,18 @@ export function cssConvertCase(v) {
 
 export function cssDeclarationToString(s) {
   let result = "{";
-  let keys = Object.keys(s);
-  let value;
 
-  for (let key of keys) {
-    value = s[key];
-    key = cssConvertCase(key);
-    result += `${key}:${value};`;
+  if (s !== undefined && s !== null) {
+    let keys = Object.keys(s);
+    let value;
+
+    for (let key of keys) {
+      value = s[key];
+      key = cssConvertCase(key);
+      result += `${key}:${value};`;
+    }
   }
 
-  result += "}";
+  result += "}\n";
   return result;
 }

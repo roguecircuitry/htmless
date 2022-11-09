@@ -1,5 +1,10 @@
-export interface StyleDef {
+export interface StyleKeyFrameDef {
+    from: Partial<CSSStyleDeclaration>;
+    to: Partial<CSSStyleDeclaration>;
     [key: string]: Partial<CSSStyleDeclaration>;
+}
+export interface StyleDef {
+    [key: string]: Partial<CSSStyleDeclaration> | StyleKeyFrameDef;
 }
 export interface DefaultCallback {
     (ui: UIBuilder): void;

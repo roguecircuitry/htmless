@@ -152,12 +152,29 @@ export class UIBuilder {
       let sss; //loop thru each style id
 
       for (let key of keys) {
-        //get the styling content for it
-        ss = s[key]; //conver to string
+        //handle special case for keyframes
+        if (key.startsWith("@keyframes")) {
+          let keyframeDef = s[key];
+          let keyframes = Object.keys(keyframeDef);
+          let output = `${key} {`;
 
-        sss = cssDeclarationToString(ss); //append to style textContent
+          for (let kf of keyframes) {
+            let kfCSS = keyframeDef[kf];
+            output += `${kf} ${cssDeclarationToString(kfCSS)} `;
+          }
 
-        this.e.textContent += `${key} ${sss}`;
+          output += "}";
+          this.e.textContent += output; // let from = keyframeDef.from;
+          // let to = keyframeDef.to;
+          // this.e.textContent += `${key} { from ${cssDeclarationToString( from )} to ${cssDeclarationToString( to )} }`;
+        } else {
+          //get the styling content for it
+          ss = s[key]; //conver to string
+
+          sss = cssDeclarationToString(ss); //append to style textContent
+
+          this.e.textContent += `${key} ${sss}`;
+        }
       }
     } else {
       Object.assign(this.e.style, s);

@@ -6,7 +6,25 @@ async function main() {
   .default(exponent) //create a stylesheet
   .create("style").style({
     ".bg": {
-      backgroundColor: "gray"
+      backgroundColor: "gray",
+      animationName: "anim",
+      animationDuration: "1s",
+      animationDirection: "alternate",
+      animationIterationCount: "infinite"
+    },
+    "@keyframes anim": {
+      "0%": {
+        backgroundColor: "magenta"
+      },
+      "25%": {
+        backgroundColor: "yellow"
+      },
+      "75%": {
+        backgroundColor: "cyan"
+      },
+      "100%": {
+        backgroundColor: "magenta"
+      }
     }
   }).mount(document.head) //create a div
   .create("div", "content", "bg").style({

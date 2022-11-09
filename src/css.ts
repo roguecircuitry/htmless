@@ -39,19 +39,21 @@ export function cssConvertCase (v: string): string {
  * @param s 
  * @returns 
  */
-export function cssDeclarationToString (s: CSSStyleDeclaration): string {
+export function cssDeclarationToString (s: Partial<CSSStyleDeclaration>): string {
   let result = "{";
 
-  let keys = Object.keys(s);
-  let value: string;
-
-  for (let key of keys) {
-    value = s[key];
-
-    key = cssConvertCase(key);
-
-    result += `${key}:${value};`;
+  if (s !== undefined && s !== null) {
+    let keys = Object.keys(s);
+    let value: string;
+  
+    for (let key of keys) {
+      value = s[key];
+  
+      key = cssConvertCase(key);
+  
+      result += `${key}:${value};`;
+    }
   }
-  result += "}";
+  result += "}\n";
   return result;
 }

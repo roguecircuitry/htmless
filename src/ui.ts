@@ -1,8 +1,14 @@
 
 import { cssDeclarationToString } from "./css.js";
 
+export interface StyleKeyFrameDef {
+  from: Partial<CSSStyleDeclaration>;
+  to: Partial<CSSStyleDeclaration>;
+  [key: string]: Partial<CSSStyleDeclaration>; //handles 0% , etc
+}
+
 export interface StyleDef {
-  [key: string]: Partial<CSSStyleDeclaration>;
+  [key: string]: Partial<CSSStyleDeclaration>|StyleKeyFrameDef;
 }
 
 export interface DefaultCallback {
@@ -185,20 +191,42 @@ export class UIBuilder {
       let keys = Object.keys(s);
 
       //individual styling for an item
-      let ss: CSSStyleDeclaration;
+      let ss: Partial<CSSStyleDeclaration>;
 
       //converted to a string
       let sss: string;
 
       //loop thru each style id
       for (let key of keys) {
-        //get the styling content for it
-        ss = s[key];
-        //conver to string
-        sss = cssDeclarationToString(ss);
+        //handle special case for keyframes
+        if (key.startsWith("@keyframes")) {
 
-        //append to style textContent
-        this.e.textContent += `${key} ${sss}`;
+          let keyframeDef = s[key] as StyleKeyFrameDef;
+
+          let keyframes = Object.keys(keyframeDef);
+          let output = `${key} {`;
+          for (let kf of keyframes) {
+            let kfCSS = keyframeDef[kf];
+
+            output += `${kf} ${cssDeclarationToString(kfCSS)} `;
+          }
+          output += "}";
+          this.e.textContent += output;
+          // let from = keyframeDef.from;
+          // let to = keyframeDef.to;
+          
+          // this.e.textContent += `${key} { from ${cssDeclarationToString( from )} to ${cssDeclarationToString( to )} }`;
+
+        } else {
+
+          //get the styling content for it
+          ss = s[key];
+          //conver to string
+          sss = cssDeclarationToString(ss);
+  
+          //append to style textContent
+          this.e.textContent += `${key} ${sss}`;
+        }
 
       }
     } else {
