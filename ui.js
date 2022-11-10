@@ -301,7 +301,7 @@ export class UIBuilder {
   getRect() {
     return this.e.getBoundingClientRect();
   }
-  /**Same as getRect, but output is saved to a provided `out: DOMRect`, this method is still chainable*/
+  /**Same as getRect, but output is saved to a provided `out: DOMRectLike`, this method is still chainable*/
 
 
   rect(out) {

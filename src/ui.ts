@@ -50,8 +50,8 @@ export type InputType =
 export interface DOMRectLike {
   x: number;
   y: number;
-  w: number;
-  h: number;
+  width: number;
+  height: number;
 }
 
 export class UIBuilder {
@@ -335,8 +335,8 @@ export class UIBuilder {
   getRect(): DOMRect {
     return this.e.getBoundingClientRect();
   }
-  /**Same as getRect, but output is saved to a provided `out: DOMRect`, this method is still chainable*/
-  rect (out: DOMRect): this {
+  /**Same as getRect, but output is saved to a provided `out: DOMRectLike`, this method is still chainable*/
+  rect (out: DOMRectLike): this {
     Object.assign(out, this.getRect());
     return this;
   }
