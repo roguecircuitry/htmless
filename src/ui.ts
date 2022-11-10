@@ -19,6 +19,10 @@ export interface TagNameCSSClassMap {
   [key: string]: string[];
 }
 
+export interface AttributeMap {
+  [key: string]: string;
+}
+
 export const ExponentCSSClassMap: TagNameCSSClassMap = {
   div:    ["exponent", "exponent-div"],
   button: ["exponent", "exponent-button"],
@@ -258,7 +262,14 @@ export class UIBuilder {
     return this;
   }
   /**assign attributes*/
-  attrs (attrs: NamedNodeMap): this {
+  attrs (attrs: AttributeMap): this {
+    let keys = Object.keys(attrs);
+
+    for (let key of keys) {
+      let value = attrs[key];
+
+      this.e.setAttribute(key, value);
+    }
     Object.assign( this.e.attributes, attrs);
     return this;
   }

@@ -12,6 +12,9 @@ export interface DefaultCallback {
 export interface TagNameCSSClassMap {
     [key: string]: string[];
 }
+export interface AttributeMap {
+    [key: string]: string;
+}
 export declare const ExponentCSSClassMap: TagNameCSSClassMap;
 export declare function exponent(ui: UIBuilder): void;
 export declare type InputType = "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "month" | "number" | "password" | "radio" | "range" | "reset" | "search" | "submit" | "tel" | "text" | "time" | "url" | "week";
@@ -82,7 +85,7 @@ export declare class UIBuilder {
     /**set the textContent*/
     textContent(s: string): this;
     /**assign attributes*/
-    attrs(attrs: NamedNodeMap): this;
+    attrs(attrs: AttributeMap): this;
     hasAttr(attrName: string): boolean;
     removeAttr(attrName: string): this;
     /**console.log(element, ...msgs)*/

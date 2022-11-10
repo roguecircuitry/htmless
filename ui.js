@@ -218,6 +218,13 @@ export class UIBuilder {
 
 
   attrs(attrs) {
+    let keys = Object.keys(attrs);
+
+    for (let key of keys) {
+      let value = attrs[key];
+      this.e.setAttribute(key, value);
+    }
+
     Object.assign(this.e.attributes, attrs);
     return this;
   }
