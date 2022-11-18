@@ -10,5 +10,6 @@ Implemented:
   - .classes
 - default behaviour functions
 - chainable HTML commands
+- on() callback type completion for event type arg
 
 See [index.ts](./src/index.html) for example code

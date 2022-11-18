@@ -24,6 +24,7 @@ export interface DOMRectLike {
     width: number;
     height: number;
 }
+export declare type EvtListenerOptions = boolean | AddEventListenerOptions;
 export declare class UIBuilder {
     /**the document being used for creating elements*/
     _doc: Document;
@@ -103,7 +104,7 @@ export declare class UIBuilder {
      */
     unmount(p?: HTMLElement): this;
     /**Alias to `<HTMLElement>.addEventListener`*/
-    on(type: keyof HTMLElementEventMap, listener: (this: HTMLElement, ev: Event) => any, options?: boolean | AddEventListenerOptions): this;
+    on<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: EvtListenerOptions): this;
     ref(e: HTMLElement): this;
     deref(): this;
     /**Alias to `<HTMLElement>.removeEventListener`*/

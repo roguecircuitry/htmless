@@ -8,7 +8,7 @@ export interface StyleKeyFrameDef {
 }
 
 export interface StyleDef {
-  [key: string]: Partial<CSSStyleDeclaration>|StyleKeyFrameDef;
+  [key: string]: Partial<CSSStyleDeclaration> | StyleKeyFrameDef;
 }
 
 export interface DefaultCallback {
@@ -24,14 +24,14 @@ export interface AttributeMap {
 }
 
 export const ExponentCSSClassMap: TagNameCSSClassMap = {
-  div:    ["exponent", "exponent-div"],
+  div: ["exponent", "exponent-div"],
   button: ["exponent", "exponent-button"],
   canvas: ["exponent", "exponent-canvas"],
-  input:  ["exponent", "exponent-input"],
-  body:   ["exponent", "body"]
+  input: ["exponent", "exponent-input"],
+  body: ["exponent", "body"]
 };
 
-export function exponent (ui: UIBuilder) {
+export function exponent(ui: UIBuilder) {
   //get type of element
   let type = ui.e.tagName.toLowerCase();
   //get classes for the element
@@ -41,15 +41,15 @@ export function exponent (ui: UIBuilder) {
   ui.classes(...cs);
 }
 
-export type InputType = 
-"button"|"checkbox"|"color"|
-"date"|"datetime-local"|
-"email"|"file"|"hidden"|
-"image"|"month"|"number"|
-"password"|"radio"|"range"|
-"reset"|"search"|"submit"|
-"tel"|"text"|"time"|
-"url"|"week";
+export type InputType =
+  "button" | "checkbox" | "color" |
+  "date" | "datetime-local" |
+  "email" | "file" | "hidden" |
+  "image" | "month" | "number" |
+  "password" | "radio" | "range" |
+  "reset" | "search" | "submit" |
+  "tel" | "text" | "time" |
+  "url" | "week";
 
 export interface DOMRectLike {
   x: number;
@@ -57,6 +57,8 @@ export interface DOMRectLike {
   width: number;
   height: number;
 }
+
+export type EvtListenerOptions = boolean | AddEventListenerOptions;
 
 export class UIBuilder {
   /**the document being used for creating elements*/
@@ -67,7 +69,7 @@ export class UIBuilder {
 
   defaultCallbacks: Set<DefaultCallback>;
 
-  default (cb: DefaultCallback): this {
+  default(cb: DefaultCallback): this {
     this.defaultCallbacks.add(cb);
     return this;
   }
@@ -77,15 +79,15 @@ export class UIBuilder {
   }
 
   /**the current element being created*/
-  get e (): HTMLElement {
-    return this.elements[this.elements.length-1];
+  get e(): HTMLElement {
+    return this.elements[this.elements.length - 1];
   }
 
   /**Create a UI builder
    * optionally provide the document used to create elements, default is window.document
    * @param d 
    */
-  constructor (d: Document = window.document) {
+  constructor(d: Document = window.document) {
     this.elements = new Array();
 
     this.defaultCallbacks = new Set();
@@ -95,55 +97,55 @@ export class UIBuilder {
     //BUILT-IN
 
     this
-    .create("style", "exponent-styles")
-    .style({
-      "body": {
-        top: "0",
-        left: "0",
-        width: "100vw",
-        height: "100vh",
-        margin: "0",
-        padding: "0",
-        overflow: "hidden",
-        display: "flex"
-      },
-      ".exponent": {
-        flex: "1",
-        color: "inherit"
-      },
-      ".exponent-div": {
-        display: "flex"
-      },
-      ".exponent-button": {
-        border: "none",
-        cursor: "pointer"
-      },
-      ".exponent-canvas": {
-        minWidth: "0"
-      },
-      ".exponent-input": {
-        minWidth: "0",
-        minHeight: "0"
-      }
-    })
-    .mount(this._doc.head);
+      .create("style", "exponent-styles")
+      .style({
+        "body": {
+          top: "0",
+          left: "0",
+          width: "100vw",
+          height: "100vh",
+          margin: "0",
+          padding: "0",
+          overflow: "hidden",
+          display: "flex"
+        },
+        ".exponent": {
+          flex: "1",
+          color: "inherit"
+        },
+        ".exponent-div": {
+          display: "flex"
+        },
+        ".exponent-button": {
+          border: "none",
+          cursor: "pointer"
+        },
+        ".exponent-canvas": {
+          minWidth: "0"
+        },
+        ".exponent-input": {
+          minWidth: "0",
+          minHeight: "0"
+        }
+      })
+      .mount(this._doc.head);
   }
 
   /**set the document used to create elements*/
-  doc (d: Document): this {
+  doc(d: Document): this {
     this._doc = d;
     return this;
   }
 
   /**document.create, but less wordy, and you can provide an ID*/
-  create (type: keyof HTMLElementTagNameMap, id?: string, ...classNames: string[]): this {
+  create(type: keyof HTMLElementTagNameMap, id?: string, ...classNames: string[]): this {
     let e = this._doc.createElement(type);
     if (id) e.id = id;
     this.elements.push(e);
     if (classNames) this.classes(...classNames);
 
     if (this.defaultCallbacks) {
-      for(let cb of this.defaultCallbacks) {
+      for (let cb of this.defaultCallbacks) {
         cb(this);
       }
     }
@@ -156,7 +158,7 @@ export class UIBuilder {
    * Does nothing if current element is not an input 
    */
   input(type: InputType, value?: string): this {
-    if (this.e !instanceof HTMLInputElement) return this;
+    if (this.e! instanceof HTMLInputElement) return this;
     let inp = (this.e as HTMLInputElement);
     inp.type = type;
     inp.value = value;
@@ -189,7 +191,7 @@ export class UIBuilder {
    * .mount(document.body)
    * ```
    */
-  style (s: Partial<CSSStyleDeclaration>|StyleDef): this {
+  style(s: Partial<CSSStyleDeclaration> | StyleDef): this {
     if (this.e instanceof HTMLStyleElement) {
       //get style ids list
       let keys = Object.keys(s);
@@ -218,7 +220,7 @@ export class UIBuilder {
           this.e.textContent += output;
           // let from = keyframeDef.from;
           // let to = keyframeDef.to;
-          
+
           // this.e.textContent += `${key} { from ${cssDeclarationToString( from )} to ${cssDeclarationToString( to )} }`;
 
         } else {
@@ -227,7 +229,7 @@ export class UIBuilder {
           ss = s[key];
           //conver to string
           sss = cssDeclarationToString(ss);
-  
+
           //append to style textContent
           this.e.textContent += `${key} ${sss}`;
         }
@@ -239,30 +241,30 @@ export class UIBuilder {
     return this;
   }
   /**add CSS classes*/
-  classes (...classes: string[]): this {
+  classes(...classes: string[]): this {
     this.e.classList.add(...classes);
     return this;
   }
-  hasClass (c: string): boolean {
+  hasClass(c: string): boolean {
     return this.e.classList.contains(c);
   }
   /**remove CSS classes*/
-  classesRemove (...classes: string[]): this {
+  classesRemove(...classes: string[]): this {
     this.e.classList.remove(...classes);
     return this;
   }
   /**set the ID*/
-  id (id: string): this {
+  id(id: string): this {
     this.e.id = id;
     return this;
   }
   /**set the textContent*/
-  textContent (s: string): this {
+  textContent(s: string): this {
     this.e.textContent = s;
     return this;
   }
   /**assign attributes*/
-  attrs (attrs: AttributeMap): this {
+  attrs(attrs: AttributeMap): this {
     let keys = Object.keys(attrs);
 
     for (let key of keys) {
@@ -270,29 +272,29 @@ export class UIBuilder {
 
       this.e.setAttribute(key, value);
     }
-    Object.assign( this.e.attributes, attrs);
+    Object.assign(this.e.attributes, attrs);
     return this;
   }
-  hasAttr (attrName: string): boolean {
+  hasAttr(attrName: string): boolean {
     return this.e.hasAttribute(attrName);
   }
-  removeAttr (attrName: string): this {
+  removeAttr(attrName: string): this {
     this.e.removeAttribute(attrName);
     return this;
   }
   /**console.log(element, ...msgs)*/
-  log (...msgs: string[]): this {
+  log(...msgs: string[]): this {
     console.log(this.e, ...msgs);
     return this;
   }
   /**Append as a child to `p`
    * Where p is an HTMLElement or an index into previous created elements
    */
-  mount (p?: HTMLElement|number): this {
+  mount(p?: HTMLElement | number): this {
     if (p && p instanceof HTMLElement) {
       p.appendChild(this.e);
     } else {
-      p = this.elements[this.elements.length-(p as number+1)];
+      p = this.elements[this.elements.length - (p as number + 1)];
       if (!p) p = this._doc.body;
       p.appendChild(this.e);
     }
@@ -305,7 +307,7 @@ export class UIBuilder {
    * @param p 
    * @returns 
    */
-  unmount (p?: HTMLElement): this {
+  unmount(p?: HTMLElement): this {
     //do nothing if there is already no parent
     if (!this.e.parentElement) return this;
     //do nothing if parent element doesn't match a provided parent selector
@@ -316,28 +318,28 @@ export class UIBuilder {
     return this;
   }
   /**Alias to `<HTMLElement>.addEventListener`*/
-  on (
-    type: keyof HTMLElementEventMap,
-    listener: (this: HTMLElement, ev: Event)=>any,
-      options?: boolean | AddEventListenerOptions
-    ): this {
-
+  on<K extends keyof HTMLElementEventMap>(
+    type: K,
+    listener: (
+      this: HTMLElement,
+      ev: HTMLElementEventMap[K]
+    ) => any,
+    options?: EvtListenerOptions): this {
     this.e.addEventListener(type, listener, options);
-
     return this;
   }
-  ref (e: HTMLElement): this {
+  ref(e: HTMLElement): this {
     this.elements.push(e);
     return this;
   }
-  deref (): this {
+  deref(): this {
     this.elements.pop();
     return this;
   }
   /**Alias to `<HTMLElement>.removeEventListener`*/
-  off (
+  off(
     type: keyof HTMLElementEventMap,
-    listener: (this: HTMLElement, ev: Event)=>any
+    listener: (this: HTMLElement, ev: Event) => any
   ): this {
     this.e.removeEventListener(type, listener);
     return this;
@@ -347,7 +349,7 @@ export class UIBuilder {
     return this.e.getBoundingClientRect();
   }
   /**Same as getRect, but output is saved to a provided `out: DOMRectLike`, this method is still chainable*/
-  rect (out: DOMRectLike): this {
+  rect(out: DOMRectLike): this {
     Object.assign(out, this.getRect());
     return this;
   }
