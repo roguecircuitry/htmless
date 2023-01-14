@@ -12,7 +12,7 @@ export interface StyleDef {
 }
 
 export interface DefaultCallback {
-  (ui: UIBuilder): void;
+  (ui: UIBuilder<any>): void;
 }
 
 export interface TagNameCSSClassMap {
@@ -31,7 +31,7 @@ export const ExponentCSSClassMap: TagNameCSSClassMap = {
   body: ["exponent", "body"]
 };
 
-export function exponent(ui: UIBuilder) {
+export function exponent(ui: UIBuilder<any>) {
   //get type of element
   let type = ui.e.tagName.toLowerCase();
   //get classes for the element
@@ -60,7 +60,7 @@ export interface DOMRectLike {
 
 export type EvtListenerOptions = boolean | AddEventListenerOptions;
 
-export class UIBuilder {
+export class UIBuilder<T extends HTMLElement> {
   /**the document being used for creating elements*/
   _doc: Document;
 
@@ -79,8 +79,8 @@ export class UIBuilder {
   }
 
   /**the current element being created*/
-  get e(): HTMLElement {
-    return this.elements[this.elements.length - 1];
+  get e(): T {
+    return this.elements[this.elements.length - 1] as any;
   }
 
   /**Create a UI builder
@@ -138,8 +138,10 @@ export class UIBuilder {
   }
 
   /**document.create, but less wordy, and you can provide an ID*/
-  create(type: keyof HTMLElementTagNameMap, id?: string, ...classNames: string[]): this {
+  create<K extends keyof HTMLElementTagNameMap>(type: K, id?: string, ...classNames: string[]): UIBuilder<HTMLElementTagNameMap[K]> {
     let e = this._doc.createElement(type);
+
+    let ne = window.document.createElement("div")
     if (id) e.id = id;
     this.elements.push(e);
     if (classNames) this.classes(...classNames);
@@ -150,7 +152,7 @@ export class UIBuilder {
       }
     }
 
-    return this;
+    return this as any;
   }
 
   /**
@@ -159,7 +161,7 @@ export class UIBuilder {
    */
   input(type: InputType, value?: string): this {
     if (this.e! instanceof HTMLInputElement) return this;
-    let inp = (this.e as HTMLInputElement);
+    let inp = (this.e as any);
     inp.type = type;
     inp.value = value;
     return this;

@@ -7,7 +7,7 @@ export interface StyleDef {
     [key: string]: Partial<CSSStyleDeclaration> | StyleKeyFrameDef;
 }
 export interface DefaultCallback {
-    (ui: UIBuilder): void;
+    (ui: UIBuilder<any>): void;
 }
 export interface TagNameCSSClassMap {
     [key: string]: string[];
@@ -16,7 +16,7 @@ export interface AttributeMap {
     [key: string]: string;
 }
 export declare const ExponentCSSClassMap: TagNameCSSClassMap;
-export declare function exponent(ui: UIBuilder): void;
+export declare function exponent(ui: UIBuilder<any>): void;
 export declare type InputType = "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "month" | "number" | "password" | "radio" | "range" | "reset" | "search" | "submit" | "tel" | "text" | "time" | "url" | "week";
 export interface DOMRectLike {
     x: number;
@@ -25,7 +25,7 @@ export interface DOMRectLike {
     height: number;
 }
 export declare type EvtListenerOptions = boolean | AddEventListenerOptions;
-export declare class UIBuilder {
+export declare class UIBuilder<T extends HTMLElement> {
     /**the document being used for creating elements*/
     _doc: Document;
     /**a list of elements being created*/
@@ -34,7 +34,7 @@ export declare class UIBuilder {
     default(cb: DefaultCallback): this;
     defaultOff(cb: DefaultCallback): this;
     /**the current element being created*/
-    get e(): HTMLElement;
+    get e(): T;
     /**Create a UI builder
      * optionally provide the document used to create elements, default is window.document
      * @param d
@@ -43,7 +43,7 @@ export declare class UIBuilder {
     /**set the document used to create elements*/
     doc(d: Document): this;
     /**document.create, but less wordy, and you can provide an ID*/
-    create(type: keyof HTMLElementTagNameMap, id?: string, ...classNames: string[]): this;
+    create<K extends keyof HTMLElementTagNameMap>(type: K, id?: string, ...classNames: string[]): UIBuilder<HTMLElementTagNameMap[K]>;
     /**
      * Set the input type and value
      * Does nothing if current element is not an input

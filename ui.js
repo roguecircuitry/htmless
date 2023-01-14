@@ -89,6 +89,7 @@ export class UIBuilder {
   create(type, id, ...classNames) {
     let e = this._doc.createElement(type);
 
+    let ne = window.document.createElement("div");
     if (id) e.id = id;
     this.elements.push(e);
     if (classNames) this.classes(...classNames);
